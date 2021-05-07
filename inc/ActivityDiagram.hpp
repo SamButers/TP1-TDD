@@ -9,6 +9,10 @@
 #include "Element.hpp"
 #include "Transition.hpp"
 #include "SequenceDiagram.hpp"
+#include "StartNode.hpp"
+#include "FinalNode.hpp"
+#include "MergeNode.hpp"
+#include "DecisionNode.hpp"
 
 using namespace std;
 
@@ -16,7 +20,11 @@ class ActivityDiagram {
 	public:
 		ActivityDiagram(string);
 		string getName();
-		void addElement(string, int);
+		void addElement(string);
+		void addElement(StartNode);
+		void addElement(DecisionNode);
+		void addElement(MergeNode);
+		void addElement(FinalNode);
 		void addTransition(string, string, string,string);
 		string toXML();
 		int validateDiagram();

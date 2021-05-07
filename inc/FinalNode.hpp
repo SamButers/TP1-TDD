@@ -9,8 +9,9 @@ class FinalNode : public Element {
 	public:
 		FinalNode(string);
 		string getType();
-
+		string getNodeName();
 	protected:
+		string name;
 		bool checkSourceAvailability() override;
 };
 

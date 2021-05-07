@@ -9,8 +9,9 @@ class StartNode : public Element {
 	public:
 		StartNode(string);
 		string getType();
-
+		string getNodeName();
 	protected:
+		string name;
 		bool checkSourceAvailability() override;
 		bool checkDestinationAvailability() override;
 };

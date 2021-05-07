@@ -9,8 +9,10 @@ class MergeNode : public Element {
 	public:
 		MergeNode(string);
 		string getType();
+		string getNodeName();
 
 	private:
+		string name;
 		bool checkSourceAvailability() override;
 };
 

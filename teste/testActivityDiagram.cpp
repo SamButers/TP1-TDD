@@ -175,8 +175,8 @@ TEST(FinalNodeXMLTest, FinalNodeXML3) {
 TEST(ElementExceptionTest, StartNodeException) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
 
 	try {
 		diagram.addTransition("faulty_transition", "activity1", "start","0.5");
@@ -189,11 +189,11 @@ TEST(ElementExceptionTest, StartNodeException) {
 TEST(ElementExceptionTest, MergeNodeException) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("merge1", 4);
-	diagram.addElement("activity2", 2);
-	diagram.addElement("activity3", 2);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
+	diagram.addElement(MergeNode("merge1"));
+	diagram.addElement("activity2");
+	diagram.addElement("activity3");
 
 	diagram.addTransition("transition1", "start", "activity1","0.5");
 	diagram.addTransition("transition2", "activity1", "merge1","0.5");
@@ -210,9 +210,9 @@ TEST(ElementExceptionTest, MergeNodeException) {
 TEST(ElementExceptionTest, FinalNodeException) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("final", 5);
-	diagram.addElement("activity1", 2);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement(FinalNode("final"));
+	diagram.addElement("activity1");
 
 	diagram.addTransition("transition1", "start", "final","0.5");
 
@@ -227,8 +227,8 @@ TEST(ElementExceptionTest, FinalNodeException) {
 TEST(ElementExceptionTest, FinalNodeExportException) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
 
 	diagram.addTransition("transition1", "start", "activity1","0.5");
 
@@ -243,13 +243,13 @@ TEST(ElementExceptionTest, FinalNodeExportException) {
 TEST(ElementExceptionTest, StartNodeCreationException) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
 
 	diagram.addTransition("transition1", "start", "activity1","0.5");
 
 	try {
-		diagram.addElement("start_again",1);
+		diagram.addElement(StartNode("start_again"));
 		FAIL();
 	} catch(std::invalid_argument &e) {
 		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
@@ -259,8 +259,8 @@ TEST(ElementExceptionTest, StartNodeCreationException) {
 TEST(ElementExceptionTest, StartNodeExportException) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("activity1", 2);
-	diagram.addElement("final",5);
+	diagram.addElement("activity1");
+	diagram.addElement(FinalNode("final"));
 	diagram.addTransition("transition1", "activity1", "final","0.5");
 
 	try {
@@ -274,13 +274,13 @@ TEST(ElementExceptionTest, StartNodeExportException) {
 TEST(ElementExceptionTest, ElementNameException) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("final",5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
+	diagram.addElement(FinalNode("final"));
 	diagram.addTransition("transition1", "activity1", "final","0.5");
 
 	try {
-		diagram.addElement("activity1",2);
+		diagram.addElement("activity1");
 		FAIL();
 	} catch(std::invalid_argument &e) {
 		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
@@ -290,13 +290,13 @@ TEST(ElementExceptionTest, ElementNameException) {
 TEST(ElementExceptionTest, ElementNameException2) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("final",5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
+	diagram.addElement(FinalNode("final"));
 	diagram.addTransition("transition1", "activity1", "final","0.5");
 
 	try {
-		diagram.addElement("final",2);
+		diagram.addElement("final");
 		FAIL();
 	} catch(std::invalid_argument &e) {
 		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
@@ -306,13 +306,13 @@ TEST(ElementExceptionTest, ElementNameException2) {
 TEST(ElementExceptionTest, ElementNameException3) {
 	ActivityDiagram diagram("test_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("final",5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
+	diagram.addElement(FinalNode("final"));
 	diagram.addTransition("transition1", "activity1", "final","0.5");
 
 	try {
-		diagram.addElement("start",2);
+		diagram.addElement("start");
 		FAIL();
 	} catch(std::invalid_argument &e) {
 		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
@@ -324,7 +324,7 @@ TEST(ElementExceptionTest, ElementSequenceAdditionException) {
 	SequenceDiagramXML my_sequence;
 	SequenceDiagramXML my_sequence2;
 
-	diagram.addElement("my_activity", 2);
+	diagram.addElement("my_activity");
 
 	diagram.addSequence(&my_sequence, "my_activity");
 
@@ -340,7 +340,7 @@ TEST(ElementExceptionTest, ElementSequenceAdditionException2) {
 	ActivityDiagram diagram("diagram");
 	SequenceDiagramXML sequence;
 
-	diagram.addElement("start_node", 1);
+	diagram.addElement(StartNode("start_node"));
 
 	try {
 		diagram.addSequence(&sequence, "start_node");
@@ -427,7 +427,7 @@ TEST(TransitionXMLTest, TransitionXML3) {
 
 TEST(DiagramElementAdditionTest, DiagramElementAddition) {
 	ActivityDiagram diagram("my_diagram");
-	diagram.addElement("start", 1);
+	diagram.addElement(StartNode("start"));
 
 	Element *element = diagram.getElement("start");
 
@@ -436,8 +436,8 @@ TEST(DiagramElementAdditionTest, DiagramElementAddition) {
 
 TEST(DiagramElementAdditionTest, DiagramElementAddition2) {
 	ActivityDiagram diagram("my_diagram");
-	diagram.addElement("start", 1);
-	diagram.addElement("activity", 3);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement(DecisionNode("activity"));
 
 	Element *element = diagram.getElement("activity");
 
@@ -446,7 +446,7 @@ TEST(DiagramElementAdditionTest, DiagramElementAddition2) {
 
 TEST(DiagramElementAdditionTest, DiagramElementAddition3) {
 	ActivityDiagram diagram("my_diagram");
-	diagram.addElement("merge", 4);
+	diagram.addElement(MergeNode("merge"));
 
 	Element *element = diagram.getElement("merge");
 
@@ -456,8 +456,8 @@ TEST(DiagramElementAdditionTest, DiagramElementAddition3) {
 TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition) {
 	ActivityDiagram diagram("my_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("final", 5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement(FinalNode("final"));
 
 	diagram.addTransition("my_transition", "start", "final","0.5");
 
@@ -471,9 +471,9 @@ TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition) {
 TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition2) {
 	ActivityDiagram diagram("my_diagram2");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity", 2);
-	diagram.addElement("final", 5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity");
+	diagram.addElement(FinalNode("final"));
 
 	diagram.addTransition("my_transition", "start", "activity","0.5");
 	diagram.addTransition("my_transition2", "activity", "final","0.5");
@@ -493,10 +493,10 @@ TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition2) {
 TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition3) {
 	ActivityDiagram diagram("my_diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity", 2);
-	diagram.addElement("merge", 4);
-	diagram.addElement("final", 5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity");
+	diagram.addElement(MergeNode("merge"));
+	diagram.addElement(FinalNode("final"));
 
 	diagram.addTransition("my_transition", "activity", "merge","0.5");
 
@@ -510,8 +510,8 @@ TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition3) {
 TEST(DiagramXMLTest, DiagramXML) {
 	ActivityDiagram diagram("diagrama_mio");
 
-	diagram.addElement("partida", 1);
-	diagram.addElement("finale", 5);
+	diagram.addElement(StartNode("partida"));
+	diagram.addElement(FinalNode("finale"));
 
 	diagram.addTransition("transition1", "partida", "finale","0.5");
 
@@ -523,9 +523,9 @@ TEST(DiagramXMLTest, DiagramXML) {
 TEST(DiagramXMLTest, DiagramXML2) {
 	ActivityDiagram diagram("diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("end", 5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
+	diagram.addElement(FinalNode("end"));
 
 	diagram.addTransition("transition1", "start", "activity1","0.5");
 	diagram.addTransition("transition2", "activity1", "end","0.5");
@@ -538,10 +538,10 @@ TEST(DiagramXMLTest, DiagramXML2) {
 TEST(DiagramXMLTest, DiagramXML3) {
 	ActivityDiagram diagram("diagram");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("activity2",2);
-	diagram.addElement("end", 5);
+	diagram.addElement(StartNode("start"));
+	diagram.addElement("activity1");
+	diagram.addElement("activity2");
+	diagram.addElement(FinalNode("end"));
 
 	diagram.addTransition("transition1", "start", "activity1","0.5");
 	diagram.addTransition("transition2", "activity1", "activity2","0.5");
@@ -555,8 +555,8 @@ TEST(DiagramExportXMLTest, DiagramExportXML) {
 	std::ifstream in;
 	ActivityDiagram diagram("diagrama_mio");
 
-	diagram.addElement("partida", 1);
-	diagram.addElement("finale", 5);
+	diagram.addElement(StartNode("partida"));
+	diagram.addElement(FinalNode("finale"));
 
 	diagram.addTransition("transition1", "partida", "finale","0.5");
 
@@ -575,9 +575,9 @@ TEST(DiagramSequenceAdditionTest, DiagramSequenceAddition) {
 	ActivityDiagram diagram("diagrama_mio");
 	SequenceDiagramXML sequence;
 
-	diagram.addElement("partida", 1);
-	diagram.addElement("activity", 2);
-	diagram.addElement("finale", 5);
+	diagram.addElement(StartNode("partida"));
+	diagram.addElement("activity");
+	diagram.addElement(FinalNode("finale"));
 
 	diagram.addSequence(&sequence, "activity");
 
@@ -591,10 +591,10 @@ TEST(DiagramSequenceAdditionTest, DiagramSequenceAddition2) {
 	SequenceDiagramXML sequence;
 	SequenceDiagramXML sequence2;
 
-	diagram.addElement("partida", 1);
-	diagram.addElement("activity", 2);
-	diagram.addElement("activity2", 2);
-	diagram.addElement("finale", 5);
+	diagram.addElement(StartNode("partida"));
+	diagram.addElement("activity");
+	diagram.addElement("activity2");
+	diagram.addElement(FinalNode("finale"));
 
 	diagram.addSequence(&sequence, "activity");
 	diagram.addSequence(&sequence2, "activity2");
@@ -610,7 +610,7 @@ TEST(DiagramSequenceAdditionTest, DiagramSequenceAddition3) {
 	ActivityDiagram diagram("my_diagram");
 	SequenceDiagramXML my_sequence;
 
-	diagram.addElement("my_activity", 2);
+	diagram.addElement("my_activity");
 
 	diagram.addSequence(&my_sequence, "my_activity");
 
@@ -623,7 +623,7 @@ TEST(DiagramActivitySequenceCheckTest, DiagramActivitySequenceCheck) {
 	ActivityDiagram diagram("my_diagram");
 	SequenceDiagramXML my_sequence;
 
-	diagram.addElement("my_activity", 2);
+	diagram.addElement("my_activity");
 
 	diagram.addSequence(&my_sequence, "my_activity");
 	
@@ -634,10 +634,10 @@ TEST(DiagramActivitySequenceCheckTest, DiagramActivitySequenceCheck2) {
 	ActivityDiagram diagram("diagram");
 	SequenceDiagramXML sequence;
 
-	diagram.addElement("partida", 1);
-	diagram.addElement("activity", 2);
-	diagram.addElement("activity2", 2);
-	diagram.addElement("finale", 5);
+	diagram.addElement(StartNode("partida"));
+	diagram.addElement("activity");
+	diagram.addElement("activity2");
+	diagram.addElement(FinalNode("finale"));
 
 	diagram.addSequence(&sequence, "activity");
 	
@@ -648,9 +648,9 @@ TEST(DiagramActivitySequenceCheckTest, DiagramActivitySequenceCheck3) {
 	ActivityDiagram diagram("diagrama_mio");
 	SequenceDiagramXML sequence;
 
-	diagram.addElement("partida", 1);
-	diagram.addElement("activity", 2);
-	diagram.addElement("finale", 5);
+	diagram.addElement(StartNode("partida"));
+	diagram.addElement("activity");
+	diagram.addElement(FinalNode("finale"));
 	
 	EXPECT_EQ(false, diagram.checkActivities());
 

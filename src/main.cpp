@@ -2,6 +2,10 @@
 #include <string>
 #include "ActivityDiagram.hpp"
 #include "SequenceDiagram.hpp"
+#include "StartNode.hpp"
+#include "MergeNode.hpp"
+#include "FinalNode.hpp"
+#include "DecisionNode.hpp"
 
 using namespace std;
 
@@ -21,21 +25,21 @@ int main() {
 
 ActivityDiagram cria_diagrama_atividade(){
 	string diagramName = "nome do diagrama";
-	string startNode = "nome do nodo inicial";
+	StartNode startNode("nome do nodo inicial");
 	string activityNode = "nome da atividade";
-	string decisionNode = "nome do nodo de decisao";
-	string mergeNode = "nome do nodo de fusao";
-	string finalNode = "nomde do nodo final";
+	DecisionNode decisionNode("nome do nodo de decisao");
+	MergeNode mergeNode("nome do nodo de fusao");
+	FinalNode finalNode("nomde do nodo final");
 
 	ActivityDiagram diagram(diagramName);
-	diagram.addElement(startNode,1);
-	diagram.addElement(activityNode,2);
-	diagram.addElement(decisionNode,3);
-	diagram.addElement(mergeNode,4);
-	diagram.addElement(finalNode,5);
+	diagram.addElement(startNode);
+	diagram.addElement(activityNode);
+	diagram.addElement(decisionNode);
+	diagram.addElement(mergeNode);
+	diagram.addElement(finalNode);
 
-	diagram.addTransition("nome da transicao",startNode,activityNode,"valor de probabilidade");
-	diagram.addTransition("nome da transicao2",activityNode,decisionNode,"valor de probabilidade");
+	diagram.addTransition("nome da transicao",startNode.getNodeName(),activityNode,"valor de probabilidade");
+	diagram.addTransition("nome da transicao2",activityNode,decisionNode.getNodeName(),"valor de probabilidade");
 
   return diagram;
 }

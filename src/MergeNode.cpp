@@ -1,6 +1,10 @@
 #include "MergeNode.hpp"
 
-MergeNode::MergeNode(string name) : Element(name) {}
+MergeNode::MergeNode(string name) : Element(name) {this->name = name;}
+
+string MergeNode::getNodeName() {
+	return this->name;
+}
 
 string MergeNode::getType() {
 	return "MergeNode";
