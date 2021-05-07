@@ -14,7 +14,7 @@ int main() {
 
   activity_diagram.addSequence(&sequence_diagram, "nome da atividade");
 
-  activity_diagram.exportXML();
+  activity_diagram.exportXml();
 
 	return 0;
 }

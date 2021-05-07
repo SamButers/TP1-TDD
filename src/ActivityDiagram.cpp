@@ -6,6 +6,7 @@
 #include "Activity.hpp"
 #include <stdexcept>
 #include <iostream>
+#include "Exporter.hpp"
 
 bool ActivityDiagram::checkName(string name)
 {
@@ -121,15 +122,7 @@ void ActivityDiagram::addSequence(SequenceDiagramXML* diagram, string name) {
 		throw std::invalid_argument("ActivityDiagramRuleException");
 }
 
-int ActivityDiagram::exportXML(){
-	if(this->hasFinal && this->hasStart && this->checkActivities()){
-		std::ofstream out;
-		auto xml = this->toXML();
-		out.open("ActivityDiagram.xml");
-		out << xml;
-		out.close();
-		return 1;
-	} else {
-		throw std::invalid_argument("ActivityDiagramRuleException");
-	}
+int ActivityDiagram::exportXml(){
+	Exporter exporter = Exporter(this);
+	return exporter.exportXml();
 }

@@ -233,7 +233,7 @@ TEST(ElementExceptionTest, FinalNodeExportException) {
 	diagram.addTransition("transition1", "start", "activity1","0.5");
 
 	try {
-		diagram.exportXML();
+		diagram.exportXml();
 		FAIL();
 	} catch(std::invalid_argument &e) {
 		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
@@ -264,7 +264,7 @@ TEST(ElementExceptionTest, StartNodeExportException) {
 	diagram.addTransition("transition1", "activity1", "final","0.5");
 
 	try {
-		diagram.exportXML();
+		diagram.exportXml();
 		FAIL();
 	} catch(std::invalid_argument &e) {
 		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
@@ -560,7 +560,7 @@ TEST(DiagramExportXMLTest, DiagramExportXML) {
 
 	diagram.addTransition("transition1", "partida", "finale","0.5");
 
-	diagram.exportXML();
+	diagram.exportXml();
 
 	in.open("ActivityDiagram.xml");
 	auto ss = ostringstream{};

@@ -19,19 +19,20 @@ class ActivityDiagram {
 		void addElement(string, int);
 		void addTransition(string, string, string,string);
 		string toXML();
-		int exportXML();
+		int validateDiagram();
 		Element* getElement(string);
 		Transition getTransition(string);
 		bool checkName(string);
 		void addSequence(SequenceDiagramXML*, string);
 		bool checkActivities();
-
+		bool hasStart;
+		bool hasFinal;
+		int exportXml();
 	private:
 		string name;
 		map<string, Element*> elements;
 		map<string, Transition> transitions;
-		bool hasStart;
-		bool hasFinal;
+
 };
 
 #endif
